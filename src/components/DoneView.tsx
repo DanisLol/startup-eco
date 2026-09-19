@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { LessonStats } from "@/lib/types";
 
 /**
@@ -48,6 +49,13 @@ export function DoneView({ stats }: { stats: LessonStats }) {
           Quiz stones: {stats.quizzesCorrect} of {stats.quizzesAttempted} right.
         </p>
       ) : null}
+
+      <Link
+        href="/"
+        className="mt-8 inline-flex min-h-14 items-center justify-center rounded-full bg-deep px-6 py-4 text-center text-xl font-semibold text-foam"
+      >
+        Back to home
+      </Link>
     </div>
   );
 }

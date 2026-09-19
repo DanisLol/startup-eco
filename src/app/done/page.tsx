@@ -34,6 +34,12 @@ export default async function DonePage() {
         >
           Back to the stones
         </Link>
+        <Link
+          href="/"
+          className="mt-4 inline-flex min-h-14 items-center justify-center rounded-full bg-foam px-6 py-4 text-xl font-semibold text-deep"
+        >
+          Back to home
+        </Link>
       </main>
     );
   }
