@@ -1,5 +1,6 @@
 import { createSupabaseServerClient } from "./supabase/server";
 import { computeStats, describeActivity, normalizeProgress } from "./stats";
+import { hasSupabaseServerConfig } from "./supabase/config";
 import type {
   Child,
   ChildSummary,
@@ -12,10 +13,13 @@ import type {
 } from "./types";
 
 function hasSupabaseAuthConfig() {
-  return Boolean(
-    (process.env.SUPABASE_URL ?? process.env.NEXT_PUBLIC_SUPABASE_URL) &&
-      (process.env.SUPABASE_ANON_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY),
-  );
+  return hasSupabaseServerConfig();
+}
+
+export function isParentDashboardSchemaError(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const candidate = error as { code?: string; message?: string };
+  return candidate.code === "42703" || candidate.code === "42P01" || /parent_user_id|parent_updates|children/i.test(candidate.message ?? "");
 }
 
 async function getCurrentParentFamily(): Promise<{ userId: string; family: Family } | null> {
