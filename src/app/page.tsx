@@ -22,6 +22,12 @@ export default function HomePage() {
       >
         I have a family code
       </Link>
+      <Link
+        href="/parent/login"
+        className="mt-4 inline-flex min-h-12 items-center justify-center rounded-full border-2 border-deep/15 px-6 py-3 text-center text-lg font-semibold text-deep"
+      >
+        Parent dashboard
+      </Link>
       <p className="mt-8 text-base text-stone">
         Demo code if you are on this laptop: MIA4K2. Grown-ups text the Twilio
         number with something like: Mia is 7, she loves volcanoes.

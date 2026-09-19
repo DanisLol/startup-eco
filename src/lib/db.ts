@@ -16,6 +16,8 @@ import type {
   LessonStatus,
   Progress,
   Session,
+  ParentUpdate,
+  Child,
 } from "./types";
 
 type LessonRow = Omit<Lesson, "artifact" | "roadmap" | "status"> & {
@@ -30,6 +32,7 @@ type MemoryStore = {
   families: Map<string, Family>;
   lessons: Map<string, Lesson>;
   sessions: Map<string, Session>;
+  updates: Map<string, ParentUpdate>;
   seeded: boolean;
 };
 
@@ -46,6 +49,7 @@ function memoryStore(): MemoryStore {
       families: new Map(),
       lessons: new Map(),
       sessions: new Map(),
+      updates: new Map(),
       seeded: false,
     };
   }
@@ -245,6 +249,7 @@ export async function createFamilyAndLesson(
     const lesson: Lesson = {
       id: crypto.randomUUID(),
       family_id: family.id,
+      child_id: null,
       topic: parsed.topic,
       status: "generating",
       roadmap: null,
@@ -255,10 +260,20 @@ export async function createFamilyAndLesson(
     return { family, lessonId: lesson.id };
   }
 
+  const { data: primaryChild, error: childError } = await db
+    .from("children")
+    .select("id")
+    .eq("family_id", family.id)
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+  if (childError) throw childError;
+
   const { data, error } = await db
     .from("lessons")
     .insert({
       family_id: family.id,
+      child_id: primaryChild?.id ?? null,
       topic: parsed.topic,
       status: "generating",
     })
@@ -510,4 +525,140 @@ export async function getLatestEndedSessionForFamily(
   const lesson = await getLesson(session.lesson_id);
   if (!lesson) return null;
   return { session, lesson };
+}
+
+/** Creates a child profile under a family after the caller has authorized it. */
+export async function createChildForFamily(input: { familyId: string; name: string; age: number }): Promise<Child> {
+  const child: Child = {
+    id: crypto.randomUUID(),
+    family_id: input.familyId,
+    name: input.name.trim(),
+    age: input.age,
+    created_at: new Date().toISOString(),
+  };
+  const db = supabase();
+  if (!db) return child;
+  const { data, error } = await db.from("children").insert({ family_id: child.family_id, name: child.name, age: child.age }).select("*").single();
+  if (error || !data) throw error ?? new Error("Child creation failed");
+  return data as Child;
+}
+
+/** Deletes a child only within the already-authorized family. */
+export async function deleteChildForFamily(input: { familyId: string; childId: string }): Promise<boolean> {
+  const db = supabase();
+  if (!db) return false;
+  const { error, count } = await db
+    .from("children")
+    .delete({ count: "exact" })
+    .eq("id", input.childId)
+    .eq("family_id", input.familyId);
+  if (error) throw error;
+  return (count ?? 0) > 0;
+}
+
+/** Links a signed-in parent to the family identified by both phone and code. */
+export async function linkFamilyToParent(input: {
+  familyCode: string;
+  phone: string;
+  parentUserId: string;
+}): Promise<Family | null> {
+  const family = await getFamilyByCode(input.familyCode);
+  if (!family || family.phone !== input.phone) return null;
+  if (family.parent_user_id && family.parent_user_id !== input.parentUserId) {
+    return null;
+  }
+
+  const db = supabase();
+  if (!db) {
+    const linked = { ...family, parent_user_id: input.parentUserId };
+    memoryStore().families.set(family.id, linked);
+    return linked;
+  }
+
+  const { data, error } = await db
+    .from("families")
+    .update({ parent_user_id: input.parentUserId })
+    .eq("id", family.id)
+    .is("parent_user_id", null)
+    .select("*")
+    .maybeSingle();
+  if (error) throw error;
+  return (data as Family | null) ?? (family.parent_user_id === input.parentUserId ? family : null);
+}
+
+/** Stores one canonical parent message, safe to retry for the same session. */
+export async function createParentUpdate(input: Omit<ParentUpdate, "id" | "created_at" | "sms_status" | "sms_sent_at" | "sms_error">): Promise<ParentUpdate> {
+  const db = supabase();
+  const existing = await getParentUpdateForSession(input.session_id);
+  if (existing) return existing;
+
+  const update: ParentUpdate = {
+    ...input,
+    id: crypto.randomUUID(),
+    sms_status: "pending",
+    sms_sent_at: null,
+    sms_error: null,
+    created_at: new Date().toISOString(),
+  };
+  if (!db) {
+    memoryStore().updates.set(update.id, update);
+    return update;
+  }
+
+  const { data, error } = await db
+    .from("parent_updates")
+    .insert({
+      family_id: update.family_id,
+      session_id: update.session_id,
+      lesson_id: update.lesson_id,
+      message_body: update.message_body,
+      observed_stats: update.observed_stats,
+      suggested_next_steps: update.suggested_next_steps,
+      sms_status: update.sms_status,
+    })
+    .select("*")
+    .single();
+  if (error) {
+    if (error.code === "23505") {
+      const duplicate = await getParentUpdateForSession(input.session_id);
+      if (duplicate) return duplicate;
+    }
+    throw error;
+  }
+  return data as ParentUpdate;
+}
+
+export async function getParentUpdateForSession(sessionId: string): Promise<ParentUpdate | null> {
+  const db = supabase();
+  if (!db) {
+    return [...memoryStore().updates.values()].find((item) => item.session_id === sessionId) ?? null;
+  }
+  const { data, error } = await db
+    .from("parent_updates")
+    .select("*")
+    .eq("session_id", sessionId)
+    .maybeSingle();
+  if (error) throw error;
+  return data as ParentUpdate | null;
+}
+
+export async function updateParentSmsStatus(input: {
+  updateId: string;
+  status: ParentUpdate["sms_status"];
+  error?: string;
+}): Promise<void> {
+  const sentAt = input.status === "sent" ? new Date().toISOString() : null;
+  const db = supabase();
+  if (!db) {
+    const update = [...memoryStore().updates.values()].find((item) => item.id === input.updateId);
+    if (update) {
+      memoryStore().updates.set(update.id, { ...update, sms_status: input.status, sms_sent_at: sentAt, sms_error: input.error ?? null });
+    }
+    return;
+  }
+  const { error } = await db
+    .from("parent_updates")
+    .update({ sms_status: input.status, sms_sent_at: sentAt, sms_error: input.error ?? null })
+    .eq("id", input.updateId);
+  if (error) throw error;
 }

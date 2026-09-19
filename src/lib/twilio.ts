@@ -21,15 +21,16 @@ export function twiml(message: string): Response {
 }
 
 /**
- * Sends an outbound SMS. Logs instead of sending when Twilio env vars are missing.
+ * Sends an outbound SMS and returns a delivery result for the dashboard inbox.
+ * Missing credentials remain a safe dry run for local development.
  */
-export async function sendSms(to: string, body: string): Promise<void> {
+export async function sendSms(to: string, body: string): Promise<{ status: "sent" | "skipped" }> {
   const sid = process.env.TWILIO_ACCOUNT_SID;
   const token = process.env.TWILIO_AUTH_TOKEN;
   const from = process.env.TWILIO_PHONE_NUMBER;
   if (!sid || !token || !from) {
     console.log(`[twilio:dry-run] to=${to} body=${body}`);
-    return;
+    return { status: "skipped" };
   }
 
   const auth = Buffer.from(`${sid}:${token}`).toString("base64");
@@ -49,4 +50,5 @@ export async function sendSms(to: string, body: string): Promise<void> {
     const detail = await response.text();
     throw new Error(`Twilio send failed: ${response.status} ${detail}`);
   }
+  return { status: "sent" };
 }
