@@ -1,17 +1,41 @@
-# Pitch — AI Learning App
+# Pitch — AI Learning App (17/17 SDGs)
 
-Imagine your child and the solar system. You type one sentence: *"I want my child to learn about the planets."* Within seconds, the AI builds a full curriculum — like a book's table of contents — and each chapter becomes its own interactive lesson: animations of orbits, flashcards, quizzes, games. Tuned to your child's age, reading level, and even what they love — dinosaurs, drawing, ninja cartoons — without copying any of it.
+A parent types one sentence — *"I want my child to learn about the planets"* — and the AI builds a full curriculum, where every topic becomes a personalized interactive lesson. Measured learning, daily parent reports, safe by design. Here is how it advances **all 17 UN Sustainable Development Goals**.
 
-That's the idea. Now here's what it changes.
+**SDG 1 — No Poverty:** world-class tutoring at zero marginal cost gives low-income families learning support money used to buy.
 
-This is **Quality Education — SDG 4** in its most direct form. Target 4.4: relevant skills for work and life. Target 4.5: **equal access for every child** — a child in a well-funded district and a child in an under-resourced school get the same adaptive, personal, endlessly patient tutor. Target 4.7: sustainable-lifestyle education, built into how every lesson is generated.
+**SDG 2 — Zero Hunger:** practical lessons on nutrition, farming, food safety, local agriculture — knowledge that improves what families eat and grow.
 
-Because every tap, retry, and question is measured, the app knows what a child actually understands — **Reduced Inequalities, SDG 10**: the struggling learner gets extra practice instead of being left behind, at zero marginal cost. And because parents see a daily summary in plain language, learning support is no longer a privilege of parents with time and expertise. That's **SDG 3, Good Health**: well-being through confidence, not pressure — the spec explicitly bans manipulative streaks and shame-based feedback.
+**SDG 3 — Good Health & Well-being:** confidence-based learning without manipulative streaks or shame; lessons on hygiene, disease prevention, and mental health; reduced household stress via clear daily reports.
 
-Parents describe goals in plain words — no prompting skills needed. That's **SDG 5, Gender Equality** in practice: mothers and fathers, any background, directing their child's education on equal footing.
+**SDG 4 — Quality Education:** the core mission. Relevant skills (4.4), equal access regardless of means (4.5), sustainability literacy (4.7) — an endlessly patient personal tutor for every child.
 
-Built on open web technology, generating lessons for any subject a parent can imagine, it scales from one family to millions — **Partnerships for the Goals, SDG 17**: technology sharing as the multiplier.
+**SDG 5 — Gender Equality:** any parent, any background, directs their child's education in plain language — no prompting expertise, no tech gatekeeping; content reviewed to avoid gender stereotypes.
 
-**One sentence:** we turn a parent's words into a world-class, personal tutor for every child — measurable learning, not screen time.
+**SDG 6 — Clean Water & Sanitation:** generated lessons on water cycles, conservation, and hygiene make clean-water knowledge available in any language and reading level.
 
-That is how software serves the Sustainable Development Goals. Thank you.
+**SDG 7 — Affordable & Clean Energy:** interactive lessons on energy, renewables, and efficiency — the concepts behind household energy choices.
+
+**SDG 8 — Decent Work & Economic Growth:** builds the digital and foundational skills children need for the future workforce, at no cost to families.
+
+**SDG 9 — Industry, Innovation & Infrastructure:** open web infrastructure that scales from one family to millions without new physical schools; innovation in how AI serves classrooms.
+
+**SDG 10 — Reduced Inequalities:** the struggling learner gets extra practice instead of being left behind; children with different reading levels and abilities get adapted content.
+
+**SDG 11 — Sustainable Cities & Communities:** lessons on local environments, recycling, and community life, personalized to where the child actually lives.
+
+**SDG 12 — Responsible Consumption:** generated activities teach waste, reuse, and conscious consumption through interactive practice, not lectures.
+
+**SDG 13 — Climate Action:** climate science becomes age-appropriate interactive lessons — understanding the problem is the first act of climate action.
+
+**SDG 14 — Life Below Water:** ocean ecosystems, marine life, and pollution made explorable through interactive artifacts.
+
+**SDG 15 — Life on Land:** ecosystems, biodiversity, and conservation taught through simulations and exploration.
+
+**SDG 16 — Peace, Justice & Strong Institutions:** safe-by-design child data practices (privacy, no manipulation, no emotional dependency) model responsible technology; lessons on fairness and civic life.
+
+**SDG 17 — Partnerships for the Goals:** open web technology as the multiplier — one platform any school, NGO, or government can adopt.
+
+**One sentence:** a parent's words become a world-class personal tutor for every child — and every Goal gets a lesson.
+
+Thank you.
