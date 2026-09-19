@@ -27,7 +27,10 @@ export function twiml(message: string): Response {
 export async function sendSms(to: string, body: string): Promise<{ status: "sent" | "skipped" }> {
   const sid = process.env.TWILIO_ACCOUNT_SID;
   const token = process.env.TWILIO_AUTH_TOKEN;
-  const from = process.env.TWILIO_PHONE_NUMBER;
+  const isWhatsapp = to.startsWith("whatsapp:");
+  const from = isWhatsapp
+    ? `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER ?? "+14155238886"}`
+    : process.env.TWILIO_PHONE_NUMBER;
   if (!sid || !token || !from) {
     console.log(`[twilio:dry-run] to=${to} body=${body}`);
     return { status: "skipped" };
