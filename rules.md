@@ -47,7 +47,7 @@ Children should be able to:
 - Learn through interactive artifacts.
 - Watch or interact with animations.
 - Answer questions and quizzes.
-- Use flashcards.
+- Explore interactive models.
 - Practice concepts.
 - Receive immediate, age-appropriate feedback.
 - See their own progress in a motivating but non-pressuring way.
@@ -183,7 +183,6 @@ It may contain:
 - Interactive diagrams.
 - Animations.
 - Simulations.
-- Flashcards.
 - Multiple-choice questions.
 - True/false questions.
 - Matching exercises.
@@ -265,7 +264,7 @@ Help the child identify important concepts, objects, relationships, or vocabular
 
 Use:
 
-- Flashcards.
+- Interactive exploration.
 - Identification activities.
 - Image-based questions.
 - Matching exercises.
@@ -362,17 +361,13 @@ Animations should be purposeful.
 
 Do not add animation merely because the application can generate it.
 
-## 8.4 Flashcards
+## 8.4 Interactive Exploration
 
-Use flashcards for:
+Use a tap-to-discover model, animation, or simulation as the main way the child learns.
 
-- Vocabulary.
-- Definitions.
-- Important facts.
-- Recognition.
-- Review.
+The visual should do the teaching. Short captions appear when the child taps a part.
 
-Flashcards should support active recall rather than simply displaying information.
+Do not use flashcards or vocabulary decks.
 
 ## 8.5 Practice
 
@@ -414,11 +409,11 @@ Better:
 
 Feedback should teach, not punish.
 
-## 8.8 Review
+## 8.8 Review then quiz
 
-End with a concise review of the most important concepts.
+After the visual, recap the most important ideas in a few short bullets.
 
-The child should be able to understand the main idea without rereading the entire artifact.
+The lesson ends with a quiz. The child should be able to understand the main idea from the recap without rereading the whole artifact.
 
 ---
 
@@ -434,7 +429,6 @@ Useful signals include:
 - Time spent.
 - Questions skipped.
 - Hint usage.
-- Flashcard performance.
 - Completed activities.
 - Repeated mistakes.
 - Topic completion.
@@ -454,7 +448,6 @@ The application should be able to revisit concepts that appear to be forgotten o
 
 Possible review mechanisms:
 
-- Flashcards.
 - Short quizzes.
 - Previously incorrect questions.
 - Interleaved practice.
@@ -721,22 +714,19 @@ CONTEXT:
 
 LEARNING REQUIREMENTS:
 - Select appropriate stages from the seven-stage learning framework.
-- Introduce the concept.
-- Explain the concept.
-- Provide visual or interactive exploration.
-- Provide active recall.
-- Provide guided practice.
-- Provide application when appropriate.
-- Include a knowledge check.
-- Provide corrective feedback.
-- Provide a final review.
+- Introduce the concept in one or two sentences.
+- Teach through visual or interactive exploration (animation, tap-to-discover, simulation).
+- Recap in a few short bullets.
+- End with a quiz covering every learning objective.
+- Provide application-style questions in the quiz when appropriate.
+- Provide corrective feedback that teaches.
 
 INTERACTION REQUIREMENTS:
 Use appropriate combinations of:
 - Animations
 - Interactive diagrams
 - Simulations
-- Flashcards
+- Tap-to-discover models
 - Multiple-choice questions
 - True/false questions
 - Matching
@@ -803,8 +793,7 @@ lesson_started
 section_viewed
 animation_started
 animation_completed
-flashcard_viewed
-flashcard_recalled
+item_explored
 activity_started
 activity_completed
 question_answered

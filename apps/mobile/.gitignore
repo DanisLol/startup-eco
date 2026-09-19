@@ -1,0 +1,26 @@
+.env
+.env.local
+.env.*.local
+
+# iOS
+ios/App/Pods
+ios/App/build
+ios/App/output
+ios/App/App/public
+ios/DerivedData
+ios/App/App.xcworkspace/xcuserdata
+ios/App/App.xcodeproj/xcuserdata
+ios/App/App.xcodeproj/project.xcworkspace/xcuserdata
+
+# Android
+android/.gradle
+android/build
+android/app/build
+android/app/.cxx
+android/local.properties
+android/.idea
+android/*.iml
+android/captures
+android/.cxx
+android/app/src/main/assets/public
+android/capacitor-cordova-android-plugins

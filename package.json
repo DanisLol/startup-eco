@@ -1,0 +1,22 @@
+{
+  "name": "startup-eco",
+  "private": true,
+  "packageManager": "pnpm@9.14.2",
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm -r --filter './packages/*' build && pnpm --filter web build",
+    "typecheck": "pnpm -r typecheck",
+    "test": "pnpm -r test",
+    "lint": "pnpm --filter web lint",
+    "mobile:sync": "pnpm --filter mobile sync",
+    "mobile:ios": "pnpm --filter mobile open:ios",
+    "mobile:android": "pnpm --filter mobile open:android",
+    "mobile:apk": "pnpm --filter mobile apk"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

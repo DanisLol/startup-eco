@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Sprout is offline</title>
+    <style>
+      :root {
+        color-scheme: light;
+      }
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        font-family: ui-rounded, system-ui, sans-serif;
+        background: #f8f5ee;
+        color: #1f2a24;
+      }
+      main {
+        box-sizing: border-box;
+        min-height: 100dvh;
+        display: grid;
+        place-items: center;
+        padding: max(2rem, env(safe-area-inset-top)) 1.5rem max(2rem, env(safe-area-inset-bottom));
+        text-align: center;
+      }
+      .mark {
+        width: 3.5rem;
+        height: 3.5rem;
+        margin: 0 auto 1rem;
+        display: grid;
+        place-items: center;
+        border-radius: 1rem;
+        background: #15803d;
+        color: #fff;
+        font-size: 1.75rem;
+      }
+      h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.5rem;
+      }
+      p {
+        margin: 0 0 1.25rem;
+        max-width: 22rem;
+        color: #5f6b64;
+        line-height: 1.5;
+      }
+      button {
+        min-height: 2.75rem;
+        padding: 0 1.25rem;
+        border: 0;
+        border-radius: 9999px;
+        background: #15803d;
+        color: #fff;
+        font: inherit;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div>
+        <div class="mark" aria-hidden="true">🌱</div>
+        <h1>Can’t reach Sprout</h1>
+        <p>Check your internet connection and try again. Lessons live on the web app this shell loads.</p>
+        <button type="button" onclick="location.reload()">Try again</button>
+      </div>
+    </main>
+  </body>
+</html>
