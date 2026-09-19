@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --sky: #7eb8d4;
+  --creek: #2f9e94;
+  --deep: #17303a;
+  --sand: #f3ddc0;
+  --foam: #f7fbff;
+  --stone: #4c5d6b;
+  --leaf: #2f8f6b;
+  --apricot: #f0a35e;
+  --ink: #17303a;
+}
+
+@theme inline {
+  --color-sky: var(--sky);
+  --color-creek: var(--creek);
+  --color-deep: var(--deep);
+  --color-sand: var(--sand);
+  --color-foam: var(--foam);
+  --color-stone: var(--stone);
+  --color-leaf: var(--leaf);
+  --color-apricot: var(--apricot);
+  --color-ink: var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-body), "Segoe UI", sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  background:
+    radial-gradient(1200px 700px at 15% -10%, #b9dcec 0%, transparent 55%),
+    radial-gradient(900px 500px at 110% 10%, #8fd0c4 0%, transparent 50%),
+    linear-gradient(180deg, #8ec6dd 0%, #d7efe8 48%, #f3ddc0 100%);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  min-height: 44px;
+}
+
+::selection {
+  background: #f0a35e;
+  color: var(--deep);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
